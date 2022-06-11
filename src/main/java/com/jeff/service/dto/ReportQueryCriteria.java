@@ -7,15 +7,23 @@ import lombok.NoArgsConstructor;
 import java.sql.Timestamp;
 import java.util.List;
 
+/**
+ * @ProjectName: joyy-backend
+ * @Package: com.jeff.service.dto
+ * @ClassName: ReportQueryCriteria
+ * @Description: []
+ * @Author: [clh]
+ * @Date: 2022/6/10 20:51
+ **/
 @Data
 @NoArgsConstructor
-public class JobQueryCriteria {
-
+public class ReportQueryCriteria {
+    @Query(type = Query.Type.INNER_LIKE)
+    private String projName;
 
     @Query(type = Query.Type.INNER_LIKE)
-    private String name;
+    private String reporterName;
 
     @Query(type = Query.Type.BETWEEN)
     private List<Timestamp> createTime;
-
 }
