@@ -52,6 +52,21 @@ public interface ReportService {
      */
     List<ReportDto> queryAll(ReportQueryCriteria criteria);
 
+//    /**
+//     * 根据项目名搜索
+//     * @param projName /
+//     * @return /
+//     */
+//    List<Report> findByProjNames(String projName);
+
+    /**
+     * 根据项目名查询
+     * @param projName 用户名
+     * @return /
+     */
+    ReportDto findByProjName(String projName);
+
+
     /**
      * 导出数据
      * @param queryAll 待导出的数据

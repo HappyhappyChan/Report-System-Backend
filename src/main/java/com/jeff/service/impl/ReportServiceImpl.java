@@ -53,6 +53,12 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
+    public ReportDto findByProjName(String projName){
+        Report report = reportRepository.findByProjName(projName);
+        return reportMapper.toDto(report);
+    }
+
+    @Override
     @Cacheable(key = "'id:' + #p0")
     public ReportDto findById(Long id) {
         Report report = reportRepository.findById(id).orElseGet(Report::new);

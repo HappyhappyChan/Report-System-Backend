@@ -26,4 +26,8 @@ public class ReportQueryCriteria {
 
     @Query(type = Query.Type.BETWEEN)
     private List<Timestamp> createTime;
+
+    @Query(blurry = "projName,reporterName")
+    private String blurry;
+
 }
