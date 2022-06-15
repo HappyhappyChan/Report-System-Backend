@@ -74,6 +74,7 @@ public class QueryHelp {
                     Class<?> fieldType = field.getType();
                     //前端传来的条件值
                     Object valueFromFrontEnd = field.get(queryCriteria);
+//                    System.out.println(valueFromFrontEnd+"=======");
                     if (ObjectUtil.isNull(valueFromFrontEnd) || "".equals(valueFromFrontEnd)) {
                         continue;
                     }
@@ -105,21 +106,32 @@ public class QueryHelp {
                     }
                     switch (q.type()) {
                         case EQUAL:
-                            list.add(cb.equal(getExpression(attributeName, join, root)
-                                    .as((Class<? extends Comparable>) fieldType), valueFromFrontEnd));
-                            break;
-                        case IS_NULL:
-                            list.add(cb.isNull(getExpression(attributeName, join, root)));
+                            list.add(cb.equal(getExpression(attributeName,join,root)
+                                    .as((Class<? extends Comparable>) fieldType),valueFromFrontEnd));
                             break;
                         case GREATER_THAN:
-                            list.add(cb.greaterThan(getExpression(attributeName, join, root)
-                                    , (Comparable) valueFromFrontEnd));
+                            list.add(cb.greaterThanOrEqualTo(getExpression(attributeName,join,root)
+                                    .as((Class<? extends Comparable>) fieldType), (Comparable) valueFromFrontEnd));
                             break;
+                        case INNER_LIKE:
+                            list.add(cb.like(getExpression(attributeName,join,root)
+                                    .as(String.class), "%" + valueFromFrontEnd.toString() + "%"));
+                            break;
+
                         case IN:
-                            if (CollUtil.isNotEmpty((Collection<Object>) valueFromFrontEnd)) {
-                                list.add(getExpression(attributeName, join, root).in((Collection<Object>) valueFromFrontEnd));
+                            if (CollUtil.isNotEmpty((Collection<Object>)valueFromFrontEnd)) {
+                                list.add(getExpression(attributeName,join,root).in((Collection<Object>) valueFromFrontEnd));
                             }
                             break;
+                        case IS_NULL:
+                            list.add(cb.isNull(getExpression(attributeName,join,root)));
+                            break;
+                        case BETWEEN:
+                            List<Object> between = new ArrayList<>((List<Object>)valueFromFrontEnd);
+                            list.add(cb.between(getExpression(attributeName, join, root).as((Class<? extends Comparable>) between.get(0).getClass()),
+                                    (Comparable) between.get(0), (Comparable) between.get(1)));
+                            break;
+                        default: break;
                     }
                 }
                 field.setAccessible(accessible);
