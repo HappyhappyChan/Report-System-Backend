@@ -98,9 +98,7 @@
 
    4. 构建数据库
 
-      打开数据库，创建一个新库 `eladmin`，导入sql文件夹中的初始化脚本库脚本 `eladmin.sql`，运行
-
-      此外，还需要 运行 `sys_report.sql`
+      打开数据库，创建一个新库 `eladmin`，导入sql文件夹中的初始化脚本库脚本 `joyy-backend.sql`
 
       修改配置，如果数据库密码不是 123456，那么需要在 src/main/resources/application.yml 配置文件中做相应的修改
 
