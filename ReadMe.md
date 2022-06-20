@@ -117,3 +117,35 @@
       ```
 
 4. 前后端都开启后，即可进入 http://localhost:8080/login
+
+## 密码加密
+
+数据库中存储的密码是经过加密的，加密算法为 Bcrypt，可以通过[Bcrypt密码生成工具][https://www.bejson.com/encrypt/bcrpyt_encode/]生成加密密码存入数据库。
+
+![image-20220620100113089](ReadMe.assets/image-20220620100113089.png)
+
+## 权限管理
+
+- 新增的用户除了要在 `sys_user`数据表加入信息，还需要在`sys_users_roles`表进行增加关联信息
+
+- 新增的功能，除了要在`eladmin`中增加对应的表，还需要在以下数据表增加关联数据
+
+  ```
+  sys_menu
+  sys_roles_menus
+  ```
+
+  - 以新增的`sys_report`为例
+
+    ```
+    创建新表 sys_report
+    在sys_menu 加入对应menu信息
+    在sys_roles_menus 加入对应信息
+    ```
+
+## 参考链接
+
+[EL-ADMIN后台管理系统][https://github.com/elunez/eladmin]
+
+[ELADMIN-WEB][https://github.com/elunez/eladmin-web]
+
